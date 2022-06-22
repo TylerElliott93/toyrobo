@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target":"ESNext",
+        "watch":true
+    },
+    "include": ["*.ts"],
+    "exclude": [
+        "node_modules/**/*"
+    ]
+}
