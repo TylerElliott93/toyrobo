@@ -1,0 +1,23 @@
+Starts the robot in the bottom right corner, then moves it counter-clockwise around the perimeter 
+until it returns to its starting tile
+
+PLACE,4,0,NORTH
+MOVE
+MOVE
+MOVE
+MOVE
+LEFT
+MOVE
+MOVE
+MOVE
+MOVE
+LEFT
+MOVE
+MOVE
+MOVE
+MOVE
+LEFT
+MOVE
+MOVE
+MOVE
+MOVE

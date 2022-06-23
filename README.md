@@ -1,20 +1,5 @@
 # Toy Robot Challenge
 
-Welcome to the Toy Robot Challenge! Please complete this coding exercise and send through your solution for review. We are looking to understand how you solve problems, what approaches you believe are good practices and what you may decide to trade off on and why. Think of the code like a communication exercise where you are communicating the solution clearly to a group of peers, not just fulfilling the functional requirements of the task.
-
-Please code your solution to the level as if it was “production ready”. You will be given detailed feedback on your solution and if you’re successful and proceed to the next stage, your code will be discussed and extended upon in the interview.
-
-Most candidates require a few hours spread over a week to complete the exercise. If you need more time, please get in touch with us to discuss. If you’re short on time, it’s better to prioritise non-functional elements over functional requirements. If you take this approach, please document it so that the reviewer has this context when they review your code.
-
-You can use any programming language that you'd like. It's probably best to use the language you're most familiar with so that you can show your best code.
-
-The review team will be looking for things like:
-
-* Striking a good balance of simiplicity vs complexity
-* Appropriate use of design patterns
-* High quality, reliable code that is easy to extend
-* A great user experience
-
 ## Problem Description 
 
 * The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units
