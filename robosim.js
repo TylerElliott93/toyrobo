@@ -1,7 +1,3 @@
-var MAX_X = 5;
-var MIN_X = 0;
-var MAX_Y = 5;
-var MIN_Y = 0;
 var CardinalDirection;
 (function (CardinalDirection) {
     CardinalDirection[CardinalDirection["NORTH"] = 0] = "NORTH";
@@ -9,18 +5,19 @@ var CardinalDirection;
     CardinalDirection[CardinalDirection["SOUTH"] = 2] = "SOUTH";
     CardinalDirection[CardinalDirection["EAST"] = 3] = "EAST";
 })(CardinalDirection || (CardinalDirection = {}));
-// Place
-function PlaceRobot(x, y, direction) {
-    var dir = getDirectionFromString(direction);
-    if (dir != null) {
-        var newBot = {
-            direction: dir,
-            xPos: x,
-            yPos: y
-        };
-        return newBot;
+function place(x, y, direction, robot) {
+    if (direction != null
+        && x >= robot.grid.MIN_X
+        && x <= robot.grid.MAX_X
+        && y >= robot.grid.MIN_Y
+        && y <= robot.grid.MAX_Y) {
+        robot.direction = direction;
+        robot.xPos = x;
+        robot.yPos = y;
     }
-    return null;
+}
+function robotOnGrid(robot) {
+    return robot.direction != null && robot.xPos != null && robot.yPos != null;
 }
 function getDirectionFromString(direction) {
     direction = direction.toUpperCase();
@@ -49,30 +46,80 @@ function turn(orientation, robot) {
 function move(robot) {
     switch (robot.direction) {
         case CardinalDirection.NORTH:
-            robot.yPos = robot.yPos < MAX_Y ? robot.yPos += 1 : robot.yPos;
+            robot.yPos = robot.yPos < robot.grid.MAX_Y ? robot.yPos += 1 : robot.yPos;
             break;
         case CardinalDirection.WEST:
-            robot.xPos = robot.xPos > MIN_X ? robot.xPos -= 1 : robot.xPos;
+            robot.xPos = robot.xPos > robot.grid.MIN_X ? robot.xPos -= 1 : robot.xPos;
             break;
         case CardinalDirection.EAST:
-            robot.xPos = robot.xPos < MAX_X ? robot.xPos += 1 : robot.xPos;
+            robot.xPos = robot.xPos < robot.grid.MAX_X ? robot.xPos += 1 : robot.xPos;
             break;
         case CardinalDirection.SOUTH:
-            robot.yPos = robot.yPos > MIN_Y ? robot.yPos -= 1 : robot.yPos;
+            robot.yPos = robot.yPos > robot.grid.MIN_Y ? robot.yPos -= 1 : robot.yPos;
             break;
     }
 }
 // Report
 function report(robot) {
-    var reportStr = robot.xPos.toString() + robot.yPos.toString() + CardinalDirection[robot.direction].toString();
-    document.getElementById("console").innerText = reportStr;
+    let reportStr = robot.xPos.toString() + robot.yPos.toString() + CardinalDirection[robot.direction].toString();
+    let cmdOutput = document.getElementById("command-output");
+    cmdOutput.value += "\n" + reportStr;
 }
-function parseCommandInput() {
-    var inputValue = document.getElementById('commandInput').value;
-    console.log(inputValue);
+function parseCommandInput(robot) {
+    let inputValue = document.getElementById('command-input').value.toUpperCase().split('\n');
+    for (let i = 0; i < inputValue.length; i++) {
+        // Split the string into an array delimited by the comma
+        let inputValueArr = inputValue[i].split(',');
+        // Grab the 'verb' part of the cmd
+        let verb = inputValueArr[0];
+        if (verb != "PLACE" && !robotOnGrid(myRobot)) {
+            continue;
+        }
+        switch (verb) {
+            case "PLACE":
+                if (inputValueArr.length == 4) {
+                    // We also need to grab the X and Y values and direction from the input
+                    let x = parseInt(inputValueArr[1]);
+                    let y = parseInt(inputValueArr[2]);
+                    let direction = getDirectionFromString(inputValueArr[3]);
+                    place(x, y, direction, myRobot);
+                }
+                break;
+            case "MOVE":
+                move(myRobot);
+                break;
+            case "LEFT":
+                turn("LEFT", myRobot);
+                break;
+            case "RIGHT":
+                turn("RIGHT", myRobot);
+                break;
+            case "REPORT":
+                report(myRobot);
+                break;
+            default:
+                break;
+        }
+        report(myRobot);
+    }
 }
+// Hook buttons up to functions 
+window.onload = () => {
+    document.getElementById('run-sim').addEventListener('click', function () { parseCommandInput(myRobot); });
+    document.getElementById('report').addEventListener('click', function () { report(myRobot); });
+};
 // Execution
-var myBot = PlaceRobot(0, 0, "NORTH");
-window.onload = function () {
-    document.getElementById('runSim').addEventListener('click', parseCommandInput);
+// Create a grid
+let myGrid = {
+    MIN_X: 0,
+    MAX_X: 5,
+    MIN_Y: 0,
+    MAX_Y: 5,
+};
+// Create a new Robot
+let myRobot = {
+    xPos: null,
+    yPos: null,
+    direction: null,
+    grid: myGrid
 };
