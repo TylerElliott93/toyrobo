@@ -56,3 +56,27 @@ The toy robot must not fall off the table during movement. This also includes th
        MOVE
        REPORT
        Output: 3,3,NORTH 
+       
+## Running the Application
+The app is primarily typescript (.ts) files that are transpiled to JS. 
+To run it on your own machine, clone the project to a local directory
+```
+git clone https://github.com/TylerElliott93/toyrobo.git
+```
+and start a webserver from the \src directory (I use npm's live-server)
+```
+npm install -g live-server
+cd src
+live-server
+```
+By default the application will run at localhost:8080
+
+## Modifying the application
+To make a change to the application logic by modifying a .ts file, install typescript
+```
+npm install -g typescript
+```
+and run the typescript compiler from the src directory
+```
+\toyrobo\src> tsc
+```
