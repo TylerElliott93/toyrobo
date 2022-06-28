@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "watch":true,
+        "outDir": "./js",
+        "module": "es6"
+    },
+    "include": ["ts/*.ts"]
+}

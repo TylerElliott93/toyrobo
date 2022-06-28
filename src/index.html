@@ -1,0 +1,38 @@
+<!DOCTYPE html5>
+
+<html>
+  <head>
+    <script src="js/app.js" type="module"></script>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <h1>Toy Robot Simulator</h1>
+
+    <div id="app">
+      <div id="info-section">
+        <section>
+          <h3>Welcome to the simulator!</h3>
+          <p>Type commands in the textbox.</p>
+          <p>The robot accepts the following commands</p>
+
+          <ul>
+            <li><code>PLACE,X,Y,[NORTH,SOUTH,EAST,WEST]</code></li>
+            <li>MOVE</li>
+            <li>LEFT</li>
+            <li>RIGHT</li>
+            <li>REPORT</li>
+          </ul>
+          <p>Any command intended to kill the robot will be ignored 😊</p>
+        </section>
+      </div>
+
+      <textarea id="command-input" rows="20"></textarea>
+      <textarea id="command-output" rows="20" readonly></textarea>
+
+      <div id="buttons">
+        <input type="button" id="run-sim" class="button" value="RUN SIM" />
+        <input type="button" id="report" class="button" value="REPORT" />
+      </div>
+    </div>
+  </body>
+</html>
